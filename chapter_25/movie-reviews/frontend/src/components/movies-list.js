@@ -23,21 +23,35 @@ function MoviesList(props) {
   }, [currentSearchMode]);
 
   useEffect(() => {
-    retrieveMovies();
     retrieveRatings();
   }, []);
 
+  // const retrieveNextPage = () => {
+  //   if (currentSearchMode === "findByTitle") {
+  //     findByTitle();
+  //   } else if (currentSearchMode === "findByRating") {
+  //     findByRating();
+  //   } else {
+  //     retrieveMovies();
+  //   }
+  // };
+
   useEffect(() => {
+    const retrieveNextPage = () => {
+      if (currentSearchMode === "findByTitle") {
+        findByTitle();
+      } else if (currentSearchMode === "findByRating") {
+        findByRating();
+      } else {
+        retrieveMovies();
+      }
+    };
+
     retrieveNextPage();
   }, [currentPage]);
 
-  const retrieveNextPage = () => {
-    if (currentSearchMode === "findByTitle") findByTitle();
-    else if (currentSearchMode === "findByRating") findByRating();
-    else retrieveMovies();
-  };
   const retrieveMovies = () => {
-    setCurrentSearchMode("")
+    setCurrentSearchMode("");
     MovieDataService.getAll(currentPage)
       .then((response) => {
         console.log(response.data);
@@ -72,7 +86,7 @@ function MoviesList(props) {
   };
 
   const find = (query, by) => {
-    MovieDataService.find(query, by,currentPage)
+    MovieDataService.find(query, by, currentPage)
       .then((response) => {
         console.log(response.data);
         setMovies(response.data.movies);
@@ -83,12 +97,12 @@ function MoviesList(props) {
   };
 
   const findByTitle = () => {
-    setCurrentSearchMode("findByTitle")
+    setCurrentSearchMode("findByTitle");
     find(searchTitle, "title");
   };
 
   const findByRating = () => {
-    setCurrentSearchMode("findByRating")
+    setCurrentSearchMode("findByRating");
     if (searchRating === "All Ratings") {
       retrieveMovies();
     } else {

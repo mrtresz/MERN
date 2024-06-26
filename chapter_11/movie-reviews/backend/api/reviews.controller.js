@@ -40,7 +40,6 @@ export default class ReviewsController {
       var { error } = ReviewResponse;
       if (error) {
         res.status.json({ error });
-   
       }
 
       if (ReviewResponse.modifiedCount === 0) {
@@ -51,7 +50,6 @@ export default class ReviewsController {
       res.json({ status: "success" });
     } catch (e) {
       res.status(500).json({ error: e.message });
-     
     }
   }
 

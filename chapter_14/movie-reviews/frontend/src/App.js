@@ -15,6 +15,7 @@ function App() {
   async function login(user = null) {
     setUser(user);
   }
+  c;
 
   async function logout() {
     setUser(null);
@@ -30,7 +31,11 @@ function App() {
               <Link to={"/movies"}>Movies</Link>
             </Nav.Link>
             <Nav.Link>
-              {user ? <a onclick={logout}>Logout</a> : <Link to={"/login"}>Login</Link>}
+              {user ? (
+                <a onclick={logout}>Logout</a>
+              ) : (
+                <Link to={"/login"}>Login</Link>
+              )}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

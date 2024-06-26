@@ -28,19 +28,19 @@ export default class ReviewsController {
     try {
       const reviewId = req.body.review_id;
       const review = req.body.review;
+      const userId = req.body.user_id;
 
       const date = new Date();
 
       const ReviewResponse = await ReviewsDAO.updateReview(
         reviewId,
-        req.body.user_id,
+        userId,
         review,
         date
       );
       var { error } = ReviewResponse;
       if (error) {
         res.status.json({ error });
-   
       }
 
       if (ReviewResponse.modifiedCount === 0) {
@@ -51,7 +51,6 @@ export default class ReviewsController {
       res.json({ status: "success" });
     } catch (e) {
       res.status(500).json({ error: e.message });
-     
     }
   }
 
